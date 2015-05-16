@@ -102,7 +102,7 @@ plot(result$interval, result$AverageSteps, type=&quot;l&quot;, main = &quot;Aver
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
-<p>The data has 2304 rows of missing steps (NA’s) so now we will impute missing data by adding the average number of steps for that particular time period:</p>
+<p>The data has 2304 rows of missing steps (NA’s) so now we will add the average number of steps for the same time period to all rows where the number of steps is missing:</p>
 <pre class="r"><code>data_wo_na &lt;- sqldf(&quot;select case when a.steps is null 
                                 then avg.AvgSteps
                                 else a.steps
@@ -127,7 +127,7 @@ hist(result$TotalSteps, main = &quot;Histogram of number of steps, w/ imputed mi
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
-<p>Now create a new variable from the date, dayofweek, which is either “weekend” or “weekday” and then we calculate the average steps taken per 5 minute interval for weekend and weekday. Finally we plot the result in two separate graphs:</p>
+<p>Now we create a new variable dependant on the date variable, dayofweek, which is either “weekend” or “weekday”. Then we calculate the average steps taken per 5 minute interval for weekend and weekday. Finally we plot the result in two separate graphs:</p>
 <pre class="r"><code>result &lt;- sqldf(&quot;select date, interval, steps, 
                         case when strftime('%w', date) in ('0', '6') 
                             then 'weekend'

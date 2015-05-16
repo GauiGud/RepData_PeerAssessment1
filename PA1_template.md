@@ -60,7 +60,7 @@ The maximum number of steps were taken at 835 or 08:35
 
 ## Imputing missing values
 
-The data has 2304 rows of missing steps (NA's) so now we will impute missing data by adding the average number of steps for that particular time period:
+The data has 2304 rows of missing steps (NA's) so now we will add the average number of steps for the same time period to all rows where the number of steps is missing:
 
 ```r
 data_wo_na <- sqldf("select case when a.steps is null 
@@ -99,7 +99,7 @@ the one without the NA's.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-Now create a new variable from the date, dayofweek, which is either "weekend" or "weekday" and then we calculate the average steps taken per 5 minute interval for weekend and weekday.  Finally we plot the result in two separate graphs:
+Now we create a new variable dependant on the date variable, dayofweek, which is either "weekend" or "weekday". Then we calculate the average steps taken per 5 minute interval for weekend and weekday.  Finally we plot the result in two separate graphs:
 
 ```r
 result <- sqldf("select date, interval, steps, 
